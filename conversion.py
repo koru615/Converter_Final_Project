@@ -31,41 +31,6 @@ abbreviations = {
     "celsius":"°C", "kelvin":"K", "farenheit":"°F",
 }
 
-conversion_factor = {
-    "meter": {
-        "inches": 39.37,
-        "feet": 3.281,
-        "yards": 1.094,
-        "miles": 1 / 1609,
-        "millimeter": 1000,
-        "centimeter": 100,
-        "kilometer": 1 / 1000,
-        "meter": 1,
-    },
-
-    "liter": {
-        "fluid oz": 33.814,
-        "pint": 2.11338,
-        "gallon": 1 / 3.785,
-        "table spoon": 67.628,
-        "tea spoon": 202.884,
-        "quart": 1.057,
-        "cup": 4.227,
-        "liter": 1,
-        "milliliter": 1000,
-    },
-
-    "kilogram": {
-        "kilogram": 1,
-        "gram": 1000,
-        "milligram": 1e+6,
-        "metric ton": 1 / 1000,
-        "US ton": 1 / 907.2,
-        "pounds": 2.20462,
-        "ounces": 35.274,
-        "carat": 5000,
-    },
-}
 
 def main():
     print()
@@ -679,14 +644,14 @@ def format_response(data: list):
     else:
         initial_data = data[2]
 
-    if data[3] % 1 == 0:
+    if data[3] % 1 == 0 and data[3] < 1000000 and data[3] > -1000000:
         converted_data = int(data[3])
         print("whole")
-    if data[3] > 1000000 or data[3] < -1000000:
+    elif data[3] > 1000000 or data[3] < -1000000:
         converted_data = "{:.2e}".format(data[3])
         print("big")
     elif (data[3] - int(data[3])) > 0 and data[3] > 1e-6:
-        converted_data = round(data[3], 2)
+        converted_data = round(data[3], 4)
         print("decimals")
     elif data[3] > 0 and data[3] < 1e-6:
         converted_data = "{:.4e}".format(data[3])
@@ -694,7 +659,7 @@ def format_response(data: list):
     elif data[3] < 0 and data[3] > -1:
         converted_data = round(data[3], 4)
     elif data[3] < -1 and data[3] > -1000000:
-        converted_data = round(data[3], 2)
+        converted_data = round(data[3], 4)
     else:
         converted_data = data[3]
 
