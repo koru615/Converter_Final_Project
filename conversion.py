@@ -17,7 +17,7 @@ units_volume = [
 ]
 
 units_mass = [
-    "kilogram", "gram", "milligram", "metric ton", "long ton", "short ton", "pounds", "ounces", "carat"
+    "kilogram", "gram", "milligram", "metric ton", "US ton", "pounds", "ounces", "carat"
 ]
 
 units_temp = [
@@ -27,14 +27,45 @@ units_temp = [
 abbreviations = {
     "inches":"in", "feet":"ft", "yards":"yd", "miles":"mi", "millimeter":"mm", "centimeter":"cm", "kilometer":"km", "meter":"m",
     "fluid oz":"fl oz", "pint":"pt", "gallon":"gal", "table spoon":"tbsp", "tea spoon":"tsp", "quart":"qt", "cup":"cup", "liter":"L", "milliliter":"mL",
-    "kilogram":"kg", "gram":"g", "milligram":"mg", "metric ton":"t", "long ton":"t (UK)", "short ton":"t (US)", "pounds":"lbs", "ounces":"oz", "carat":"ct",
+    "kilogram":"kg", "gram":"g", "milligram":"mg", "metric ton":"t", "US ton":"t (US)", "pounds":"lbs", "ounces":"oz", "carat":"ct",
     "celsius":"°C", "kelvin":"K", "farenheit":"°F",
 }
 
-decimal_options = [
-    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
-]
+conversion_factor = {
+    "meter": {
+        "inches": 39.37,
+        "feet": 3.281,
+        "yards": 1.094,
+        "miles": 1 / 1609,
+        "millimeter": 1000,
+        "centimeter": 100,
+        "kilometer": 1 / 1000,
+        "meter": 1,
+    },
 
+    "liter": {
+        "fluid oz": 33.814,
+        "pint": 2.11338,
+        "gallon": 1 / 3.785,
+        "table spoon": 67.628,
+        "tea spoon": 202.884,
+        "quart": 1.057,
+        "cup": 4.227,
+        "liter": 1,
+        "milliliter": 1000,
+    },
+
+    "kilogram": {
+        "kilogram": 1,
+        "gram": 1000,
+        "milligram": 1e+6,
+        "metric ton": 1 / 1000,
+        "US ton": 1 / 907.2,
+        "pounds": 2.20462,
+        "ounces": 35.274,
+        "carat": 5000,
+    },
+}
 
 def main():
     print()
@@ -117,7 +148,7 @@ def get_data_type(selected_unit, selection_type):
         while True:
             try:
                 from_unit = input("Code: ").strip()
-                if from_unit in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                if from_unit in ["1", "2", "3", "4", "5", "6", "7", "8"]:
                     from_unit = units_mass[(int(from_unit) - 1)]
                     print(f"You have selected {from_unit}")
                     break
@@ -324,13 +355,323 @@ def convert_volume(from_type, to_type, from_value):
             return from_value / 33.814
         elif to_type == "milliliter":
             return from_value * 29.574
+    elif from_type == "pint":
+        if to_type == "fluid oz":
+            return from_value * 16
+        elif to_type == "pint":
+            return from_value
+        elif to_type == "gallon":
+            return from_value / 8
+        elif to_type == "table spoon":
+            return from_value * 32
+        elif to_type == "tea spoon":
+            return from_value * 96
+        elif to_type == "quart":
+            return from_value / 2
+        elif to_type == "cup":
+            return from_value * 2
+        elif to_type == "liter":
+            return from_value / 2.113
+        elif to_type == "milliliter":
+            return from_value * 473.2
+    elif from_type == "gallon":
+        if to_type == "fluid oz":
+            return from_value * 128
+        elif to_type == "pint":
+            return from_value * 8
+        elif to_type == "gallon":
+            return from_value
+        elif to_type == "table spoon":
+            return from_value * 256
+        elif to_type == "tea spoon":
+            return from_value * 768
+        elif to_type == "quart":
+            return from_value * 4
+        elif to_type == "cup":
+            return from_value * 16
+        elif to_type == "liter":
+            return from_value * 3.78541
+        elif to_type == "milliliter":
+            return from_value * 378541
+    elif from_type == "table spoon":
+        if to_type == "fluid oz":
+            return from_value / 2
+        elif to_type == "pint":
+            return from_value / 32
+        elif to_type == "gallon":
+            return from_value / 256
+        elif to_type == "table spoon":
+            return from_value
+        elif to_type == "tea spoon":
+            return from_value * 3
+        elif to_type == "quart":
+            return from_value / 64
+        elif to_type == "cup":
+            return from_value / 16
+        elif to_type == "liter":
+            return from_value / 67.628
+        elif to_type == "milliliter":
+            return from_value * 14.787
+    elif from_type == "tea spoon":
+        if to_type == "fluid oz":
+            return from_value / 6
+        elif to_type == "pint":
+            return from_value / 96
+        elif to_type == "gallon":
+            return from_value / 768
+        elif to_type == "table spoon":
+            return from_value * 3
+        elif to_type == "tea spoon":
+            return from_value
+        elif to_type == "quart":
+            return from_value / 192
+        elif to_type == "cup":
+            return from_value / 48
+        elif to_type == "liter":
+            return from_value / 202.9
+        elif to_type == "milliliter":
+            return from_value * 4.929
+    elif from_type == "quart":
+        if to_type == "fluid oz":
+            return from_value * 32
+        elif to_type == "pint":
+            return from_value * 2
+        elif to_type == "gallon":
+            return from_value / 4
+        elif to_type == "table spoon":
+            return from_value * 64
+        elif to_type == "tea spoon":
+            return from_value * 192
+        elif to_type == "quart":
+            return from_value
+        elif to_type == "cup":
+            return from_value * 4
+        elif to_type == "liter":
+            return from_value / 1.057
+        elif to_type == "milliliter":
+            return from_value * 946.4
+    elif from_type == "cup":
+        if to_type == "fluid oz":
+            return from_value * 8
+        elif to_type == "pint":
+            return from_value / 2
+        elif to_type == "gallon":
+            return from_value / 16
+        elif to_type == "table spoon":
+            return from_value * 16
+        elif to_type == "tea spoon":
+            return from_value * 48
+        elif to_type == "quart":
+            return from_value * 4
+        elif to_type == "cup":
+            return from_value
+        elif to_type == "liter":
+            return from_value / 4.227
+        elif to_type == "milliliter":
+            return from_value * 236.6
+    elif from_type == "liter":
+        if to_type == "fluid oz":
+            return from_value * 33.814
+        elif to_type == "pint":
+            return from_value * 2.11338
+        elif to_type == "gallon":
+            return from_value / 3.785
+        elif to_type == "table spoon":
+            return from_value * 67.628
+        elif to_type == "tea spoon":
+            return from_value * 202.884
+        elif to_type == "quart":
+            return from_value * 1.057
+        elif to_type == "cup":
+            return from_value * 4.227
+        elif to_type == "liter":
+            return from_value
+        elif to_type == "milliliter":
+            return from_value * 1000
+    elif from_type == "milliliter":
+        if to_type == "fluid oz":
+            return from_value / 29.574
+        elif to_type == "pint":
+            return from_value / 473.2
+        elif to_type == "gallon":
+            return from_value / 3785
+        elif to_type == "table spoon":
+            return from_value / 14.787
+        elif to_type == "tea spoon":
+            return from_value / 4.929
+        elif to_type == "quart":
+            return from_value / 946.4
+        elif to_type == "cup":
+            return from_value / 236.6
+        elif to_type == "liter":
+            return from_value / 1000
+        elif to_type == "milliliter":
+            return from_value
+    
 
 def convert_mass(from_type, to_type, from_value):
-    ...
+    if from_type == "kilogram":
+        if to_type == "kilogram":
+            return from_value
+        elif to_type == "gram":
+            return from_value * 1000
+        elif to_type == "milligram":
+            return from_value * 1e+6
+        elif to_type == "metric ton":
+            return from_value / 1000
+        elif to_type == "US ton":
+            return from_value / 907.2
+        elif to_type == "pounds":
+            return from_value * 2.20462
+        elif to_type == "ounces":
+            return from_value * 35.274
+        elif to_type == "carat":
+            return from_value * 5000
+    elif from_type == "gram":
+        if to_type == "kilogram":
+            return from_value / 1000
+        elif to_type == "gram":
+            return from_value
+        elif to_type == "milligram":
+            return from_value * 1000
+        elif to_type == "metric ton":
+            return from_value / 1e+6
+        elif to_type == "US ton":
+            return from_value / 907200
+        elif to_type == "pounds":
+            return from_value / 453.592
+        elif to_type == "ounces":
+            return from_value / 28.3495
+        elif to_type == "carat":
+            return from_value * 141.748
+    elif from_type == "milligram":
+        if to_type == "kilogram":
+            return from_value / 1e+6
+        elif to_type == "gram":
+            return from_value / 1000
+        elif to_type == "milligram":
+            return from_value
+        elif to_type == "metric ton":
+            return from_value / 1e+9
+        elif to_type == "US ton":
+            return from_value / 9.072e+8
+        elif to_type == "pounds":
+            return from_value / 453592
+        elif to_type == "ounces":
+            return from_value / 28349.5
+        elif to_type == "carat":
+            return from_value / 200
+    elif from_type == "metric ton":
+        if to_type == "kilogram":
+            return from_value * 1000
+        elif to_type == "gram":
+            return from_value * 1e+6
+        elif to_type == "milligram":
+            return from_value * 1e+9
+        elif to_type == "metric ton":
+            return from_value
+        elif to_type == "US ton":
+            return from_value * 1.102
+        elif to_type == "pounds":
+            return from_value * 2204.62
+        elif to_type == "ounces":
+            return from_value * 35270
+        elif to_type == "carat":
+            return from_value * 5e+6
+    elif from_type == "US ton":
+        if to_type == "kilogram":
+            return from_value * 907.2
+        elif to_type == "gram":
+            return from_value * 907200
+        elif to_type == "milligram":
+            return from_value * 9.072e+8
+        elif to_type == "metric ton":
+            return from_value / 1.102
+        elif to_type == "US ton":
+            return from_value
+        elif to_type == "pounds":
+            return from_value * 2000
+        elif to_type == "ounces":
+            return from_value * 32000
+        elif to_type == "carat":
+            return from_value * 4.536e+6
+    elif from_type == "pounds":
+        if to_type == "kilogram":
+            return from_value / 2.205
+        elif to_type == "gram":
+            return from_value * 453.6
+        elif to_type == "milligram":
+            return from_value * 453600
+        elif to_type == "metric ton":
+            return from_value / 2205
+        elif to_type == "US ton":
+            return from_value / 2000
+        elif to_type == "pounds":
+            return from_value
+        elif to_type == "ounces":
+            return from_value * 16
+        elif to_type == "carat":
+            return from_value * 2268
+    elif from_type == "ounces":
+        if to_type == "kilogram":
+            return from_value / 35.274
+        elif to_type == "gram":
+            return from_value * 28.35
+        elif to_type == "milligram":
+            return from_value * 28350
+        elif to_type == "metric ton":
+            return from_value / 35270
+        elif to_type == "US ton":
+            return from_value / 32000
+        elif to_type == "pounds":
+            return from_value / 16
+        elif to_type == "ounces":
+            return from_value
+        elif to_type == "carat":
+            return from_value * 141.7
+    elif from_type == "carat":
+        if to_type == "kilogram":
+            return from_value / 5000
+        elif to_type == "gram":
+            return from_value / 5
+        elif to_type == "milligram":
+            return from_value * 200
+        elif to_type == "metric ton":
+            return from_value / 5e+6
+        elif to_type == "US ton":
+            return from_value / 4.536e+6
+        elif to_type == "pounds":
+            return from_value / 2268
+        elif to_type == "ounces":
+            return from_value / 141.7
+        elif to_type == "carat":
+            return from_value
+
 
 def convert_temp(from_type, to_type, from_value):
-    ...
-    
+    if from_type == "celsius":
+        if to_type == "celsius":
+            return from_value
+        elif to_type == "kelvin":
+            return from_value + 273.14
+        elif to_type == "farenheit":
+            return (from_value * 9/5) + 32
+    if from_type == "kelvin":
+        if to_type == "celsius":
+            return from_value - 273.15
+        elif to_type == "kelvin":
+            return from_value
+        elif to_type == "farenheit":
+            return ((from_value - 273.15) * 9/5) + 32
+    if from_type == "farenheit":
+        if to_type == "celsius":
+            return (from_value - 32) * 5/9
+        elif to_type == "kelvin":
+            return (from_value - 32) * 5/9 + 273.15
+        elif to_type == "farenheit":
+            return from_value
+
+
 # double check scientific notation for negative numbers
 def format_response(data: list):
     if data[2] % 1 == 0:
@@ -340,17 +681,25 @@ def format_response(data: list):
 
     if data[3] % 1 == 0:
         converted_data = int(data[3])
-    elif data[3] > 10000000 or data[3] < 1e-6:
-        converted_data = "{:.4e}".format(data[3])
+        print("whole")
+    if data[3] > 1000000 or data[3] < -1000000:
+        converted_data = "{:.2e}".format(data[3])
+        print("big")
     elif (data[3] - int(data[3])) > 0 and data[3] > 1e-6:
+        converted_data = round(data[3], 2)
+        print("decimals")
+    elif data[3] > 0 and data[3] < 1e-6:
+        converted_data = "{:.4e}".format(data[3])
+        print("very small")
+    elif data[3] < 0 and data[3] > -1:
         converted_data = round(data[3], 4)
+    elif data[3] < -1 and data[3] > -1000000:
+        converted_data = round(data[3], 2)
     else:
         converted_data = data[3]
 
     info = str(f"{initial_data} {abbreviations[data[0]]} = {converted_data} {abbreviations[data[1]]}")
     return info
-
-
 
 
 if __name__ == "__main__":
