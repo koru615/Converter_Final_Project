@@ -9,7 +9,7 @@ unit_reference = {
 }
 
 units_length = [
-    "inches", "feet", "yards", "miles", "millimeter", "centimeter", "kilometer", "meter"
+    "inch", "foot", "yard", "mile", "millimeter", "centimeter", "kilometer", "meter"
 ]
 
 units_volume = [
@@ -17,7 +17,7 @@ units_volume = [
 ]
 
 units_mass = [
-    "kilogram", "gram", "milligram", "metric ton", "US ton", "pounds", "ounces", "carat"
+    "kilogram", "gram", "milligram", "metric ton", "US ton", "pound", "ounce", "carat"
 ]
 
 units_temp = [
@@ -25,9 +25,9 @@ units_temp = [
 ]
 
 abbreviations = {
-    "inches":"in", "feet":"ft", "yards":"yd", "miles":"mi", "millimeter":"mm", "centimeter":"cm", "kilometer":"km", "meter":"m",
+    "inch":"in", "foot":"ft", "yard":"yd", "mile":"mi", "millimeter":"mm", "centimeter":"cm", "kilometer":"km", "meter":"m",
     "fluid oz":"fl oz", "pint":"pt", "gallon":"gal", "table spoon":"tbsp", "tea spoon":"tsp", "quart":"qt", "cup":"cup", "liter":"L", "milliliter":"mL",
-    "kilogram":"kg", "gram":"g", "milligram":"mg", "metric ton":"t", "US ton":"t (US)", "pounds":"lbs", "ounces":"oz", "carat":"ct",
+    "kilogram":"kg", "gram":"g", "milligram":"mg", "metric ton":"t", "US ton":"t (US)", "pound":"lbs", "ounce":"oz", "carat":"ct",
     "celsius":"°C", "kelvin":"K", "farenheit":"°F",
 }
 
@@ -162,14 +162,14 @@ def check_data(value: str):
 
 
 def convert_length(from_type, to_type, from_value):
-    if from_type == "inches":
-        if to_type == "inches":
+    if from_type == "inch":
+        if to_type == "inch":
             return from_value
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value / 12
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value / 36
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 63360
         elif to_type == "millimeter":
             return from_value * 25.4
@@ -179,14 +179,14 @@ def convert_length(from_type, to_type, from_value):
             return from_value / 39370
         elif to_type == "meter":
             return from_value / 39.37
-    elif from_type == "feet":
-        if to_type == "inches":
+    elif from_type == "foot":
+        if to_type == "inch":
             return from_value * 12
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value / 3
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 5280
         elif to_type == "millimeter":
             return from_value * 304.8
@@ -196,14 +196,14 @@ def convert_length(from_type, to_type, from_value):
             return from_value / 3281
         elif to_type == "meter":
             return from_value / 3.281
-    elif from_type == "yards":
-        if to_type == "inches":
+    elif from_type == "yard":
+        if to_type == "inch":
             return from_value * 36
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value * 3
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 1760
         elif to_type == "millimeter":
             return from_value * 914.4
@@ -213,14 +213,14 @@ def convert_length(from_type, to_type, from_value):
             return from_value / 1094
         elif to_type == "meter":
             return from_value / 1.094
-    elif from_type == "miles":
-        if to_type == "inches":
+    elif from_type == "mile":
+        if to_type == "inch":
             return from_value * 63360
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value * 5280
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value * 1760
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value
         elif to_type == "millimeter":
             return from_value * 1.609e+6
@@ -231,13 +231,13 @@ def convert_length(from_type, to_type, from_value):
         elif to_type == "meter":
             return from_value * 1609
     elif from_type == "millimeter":
-        if to_type == "inches":
+        if to_type == "inch":
             return from_value / 25.4
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value / 304.8
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value / 914.4
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 1.609e+6
         elif to_type == "millimeter":
             return from_value
@@ -248,13 +248,13 @@ def convert_length(from_type, to_type, from_value):
         elif to_type == "meter":
             return from_value / 1000
     elif from_type == "centimeter":
-        if to_type == "inches":
+        if to_type == "inch":
             return from_value / 2.54
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value / 30.48
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value / 91.44
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 160900
         elif to_type == "millimeter":
             return from_value * 10
@@ -265,13 +265,13 @@ def convert_length(from_type, to_type, from_value):
         elif to_type == "meter":
             return from_value / 100
     elif from_type == "kilometer":
-        if to_type == "inches":
+        if to_type == "inch":
             return from_value * 39370
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value * 3281
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value * 1094
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 1.609
         elif to_type == "millimeter":
             return from_value * 1e+6
@@ -282,13 +282,13 @@ def convert_length(from_type, to_type, from_value):
         elif to_type == "meter":
             return from_value * 1000
     elif from_type == "meter":
-        if to_type == "inches":
+        if to_type == "inch":
             return from_value * 39.37
-        elif to_type == "feet":
+        elif to_type == "foot":
             return from_value * 3.281
-        elif to_type == "yards":
+        elif to_type == "yard":
             return from_value * 1.094
-        elif to_type == "miles":
+        elif to_type == "mile":
             return from_value / 1609
         elif to_type == "millimeter":
             return from_value * 1000
@@ -355,9 +355,9 @@ def convert_volume(from_type, to_type, from_value):
         elif to_type == "cup":
             return from_value * 16
         elif to_type == "liter":
-            return from_value * 3.78541
+            return from_value * 3.785
         elif to_type == "milliliter":
-            return from_value * 378541
+            return from_value * 3785
     elif from_type == "table spoon":
         if to_type == "fluid oz":
             return from_value / 2
@@ -385,7 +385,7 @@ def convert_volume(from_type, to_type, from_value):
         elif to_type == "gallon":
             return from_value / 768
         elif to_type == "table spoon":
-            return from_value * 3
+            return from_value / 3
         elif to_type == "tea spoon":
             return from_value
         elif to_type == "quart":
@@ -427,7 +427,7 @@ def convert_volume(from_type, to_type, from_value):
         elif to_type == "tea spoon":
             return from_value * 48
         elif to_type == "quart":
-            return from_value * 4
+            return from_value / 4
         elif to_type == "cup":
             return from_value
         elif to_type == "liter":
@@ -438,13 +438,13 @@ def convert_volume(from_type, to_type, from_value):
         if to_type == "fluid oz":
             return from_value * 33.814
         elif to_type == "pint":
-            return from_value * 2.11338
+            return from_value * 2.113
         elif to_type == "gallon":
             return from_value / 3.785
         elif to_type == "table spoon":
             return from_value * 67.628
         elif to_type == "tea spoon":
-            return from_value * 202.884
+            return from_value * 202.9
         elif to_type == "quart":
             return from_value * 1.057
         elif to_type == "cup":
@@ -486,9 +486,9 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 1000
         elif to_type == "US ton":
             return from_value / 907.2
-        elif to_type == "pounds":
-            return from_value * 2.20462
-        elif to_type == "ounces":
+        elif to_type == "pound":
+            return from_value * 2.205
+        elif to_type == "ounce":
             return from_value * 35.274
         elif to_type == "carat":
             return from_value * 5000
@@ -503,12 +503,12 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 1e+6
         elif to_type == "US ton":
             return from_value / 907200
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value / 453.592
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value / 28.3495
         elif to_type == "carat":
-            return from_value * 141.748
+            return from_value * 5
     elif from_type == "milligram":
         if to_type == "kilogram":
             return from_value / 1e+6
@@ -520,9 +520,9 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 1e+9
         elif to_type == "US ton":
             return from_value / 9.072e+8
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value / 453592
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value / 28349.5
         elif to_type == "carat":
             return from_value / 200
@@ -537,9 +537,9 @@ def convert_mass(from_type, to_type, from_value):
             return from_value
         elif to_type == "US ton":
             return from_value * 1.102
-        elif to_type == "pounds":
-            return from_value * 2204.62
-        elif to_type == "ounces":
+        elif to_type == "pound":
+            return from_value * 2205
+        elif to_type == "ounce":
             return from_value * 35270
         elif to_type == "carat":
             return from_value * 5e+6
@@ -554,13 +554,13 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 1.102
         elif to_type == "US ton":
             return from_value
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value * 2000
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value * 32000
         elif to_type == "carat":
             return from_value * 4.536e+6
-    elif from_type == "pounds":
+    elif from_type == "pound":
         if to_type == "kilogram":
             return from_value / 2.205
         elif to_type == "gram":
@@ -571,13 +571,13 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 2205
         elif to_type == "US ton":
             return from_value / 2000
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value * 16
         elif to_type == "carat":
             return from_value * 2268
-    elif from_type == "ounces":
+    elif from_type == "ounce":
         if to_type == "kilogram":
             return from_value / 35.274
         elif to_type == "gram":
@@ -588,9 +588,9 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 35270
         elif to_type == "US ton":
             return from_value / 32000
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value / 16
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value
         elif to_type == "carat":
             return from_value * 141.7
@@ -605,9 +605,9 @@ def convert_mass(from_type, to_type, from_value):
             return from_value / 5e+6
         elif to_type == "US ton":
             return from_value / 4.536e+6
-        elif to_type == "pounds":
+        elif to_type == "pound":
             return from_value / 2268
-        elif to_type == "ounces":
+        elif to_type == "ounce":
             return from_value / 141.7
         elif to_type == "carat":
             return from_value
@@ -618,7 +618,7 @@ def convert_temp(from_type, to_type, from_value):
         if to_type == "celsius":
             return from_value
         elif to_type == "kelvin":
-            return from_value + 273.14
+            return from_value + 273.15
         elif to_type == "farenheit":
             return (from_value * 9/5) + 32
     if from_type == "kelvin":
@@ -637,27 +637,28 @@ def convert_temp(from_type, to_type, from_value):
             return from_value
 
 
-# double check scientific notation for negative numbers
 def format_response(data: list):
     if data[2] % 1 == 0:
         initial_data = int(data[2])
     else:
         initial_data = data[2]
 
+    # whole
     if data[3] % 1 == 0 and data[3] < 1000000 and data[3] > -1000000:
         converted_data = int(data[3])
-        print("whole")
+    # large
     elif data[3] > 1000000 or data[3] < -1000000:
-        converted_data = "{:.2e}".format(data[3])
-        print("big")
+        converted_data = "{:.4e}".format(data[3])
+    # decimals
     elif (data[3] - int(data[3])) > 0 and data[3] > 1e-6:
         converted_data = round(data[3], 4)
-        print("decimals")
+    # small
     elif data[3] > 0 and data[3] < 1e-6:
         converted_data = "{:.4e}".format(data[3])
-        print("very small")
+    # negative decimals
     elif data[3] < 0 and data[3] > -1:
         converted_data = round(data[3], 4)
+    # negative numbers
     elif data[3] < -1 and data[3] > -1000000:
         converted_data = round(data[3], 4)
     else:
