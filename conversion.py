@@ -24,13 +24,16 @@ temperature:
     "celsius", "kelvin", "farenheit"
             
 *** UNITS MUST BE SPELLED CORRECTLY OR AN ERROR WILL BE THROWN ***
-*** If using the command line to run, all three options must be given ***
+*** If performing a single conversion, all three options must be given (-x, -f, -t)***
+*** If requesting all conversions for a given unit, provide the value(-x), from unit(-f), and (-a) ***
             '''),
     )
 
 parser.add_argument("-x", "--value", type=float, dest="from_value", help="value to be converted (float)")
 parser.add_argument("-f", "--from", type=str, dest="from_type", help="unit to be converted from")
 parser.add_argument("-t", "--to", type=str, dest="to_type", help="unit to be converted to")
+parser.add_argument("-a", "--all", action="store_true", dest="all", help="show all conversions for a given 'from' unit")
+
 
 args = parser.parse_args()
 
@@ -734,34 +737,65 @@ def format_response(data: list):
     return info
 
 
-def cl_converter(from_type: str, to_type: str, from_value: float):
-    if "_" in from_type:
-        from_type = from_type.replace("_", " ")
-        print(from_type)
+def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
+    if from_type != None:
+        if "_" in from_type:
+            from_type = from_type.replace("_", " ")
+            print(from_type)
 
-    if "_" in to_type:
-        to_type = to_type.replace("_", " ")
+    if to_type != None:
+        if "_" in to_type:
+            to_type = to_type.replace("_", " ")
 
-    if from_type in units_length and to_type in units_length:
-        converted_data = convert_length(from_type, to_type, from_value)
-        package_data = [from_type, to_type, from_value, converted_data]
-        final_equation = format_response(package_data)
-        print(final_equation)
-    elif from_type in units_volume and to_type in units_volume:
-        converted_data = convert_volume(from_type, to_type, from_value)
-        package_data = [from_type, to_type, from_value, converted_data]
-        final_equation = format_response(package_data)
-        print(final_equation)
-    elif from_type in units_mass and to_type in units_mass:
-        converted_data = convert_mass(from_type, to_type, from_value)
-        package_data = [from_type, to_type, from_value, converted_data]
-        final_equation = format_response(package_data)
-        print(final_equation)
-    elif from_type in units_temp and to_type in units_temp:
-        converted_data = convert_temp(from_type, to_type, from_value)
-        package_data = [from_type, to_type, from_value, converted_data]
-        final_equation = format_response(package_data)
-        print(final_equation)
+
+    if from_type in units_length:
+        if all:
+            for i in units_length:
+                converted_data = convert_length(from_type, i, from_value)
+                package_data = [from_type, i, from_value, converted_data]
+                final_equation = format_response(package_data)
+                print(final_equation)
+        elif to_type in units_length:
+            converted_data = convert_length(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+    elif from_type in units_volume:
+        if all:
+            for i in units_volume:
+                converted_data = convert_volume(from_type, i, from_value)
+                package_data = [from_type, i, from_value, converted_data]
+                final_equation = format_response(package_data)
+                print(final_equation)
+        elif to_type in units_volume:
+            converted_data = convert_volume(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+    elif from_type in units_mass:
+        if all:
+            for i in units_mass:
+                converted_data = convert_mass(from_type, i, from_value)
+                package_data = [from_type, i, from_value, converted_data]
+                final_equation = format_response(package_data)
+                print(final_equation)
+        elif to_type in units_mass:
+            converted_data = convert_mass(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+    elif from_type in units_temp:
+        if all:
+            for i in units_temp:
+                converted_data = convert_temp(from_type, i, from_value)
+                package_data = [from_type, i, from_value, converted_data]
+                final_equation = format_response(package_data)
+                print(final_equation)
+        elif to_type in units_temp:
+            converted_data = convert_temp(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
     else:
         sys.exit("ERROR: improper values. use -h for a list of valid operators")
 
@@ -769,7 +803,12 @@ if args.from_value != None:
     from_value = args.from_value
     from_type = args.from_type
     to_type = args.to_type
-    cl_converter(from_type, to_type, from_value)
+    all = args.all
+    if from_type != None and to_type == None and all == False:
+        sys.exit("ERROR: missing unit to convert to. use -h for a list of valid operators")
+    cl_converter(from_type, to_type, from_value, all)
+elif args != None:
+    print("ERROR: need more info, use -h for usage")
 
 if __name__ == "__main__":
     main()
