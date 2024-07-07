@@ -1,4 +1,5 @@
 from tabulate import tabulate
+import sys
 
 units_options = [
     ["code","unit"], ["1","length"], ["2","volume"], ["3","mass"], ["4","temperature"]
@@ -33,6 +34,52 @@ abbreviations = {
 
 
 def main():
+    if len(sys.argv) == 1:
+        while True:
+            try:
+                standard_app()
+                answer = retry()
+                if answer == 1:
+                    pass
+                elif answer == 2:
+                    sys.exit()
+            except ValueError:
+                pass
+    elif len(sys.argv) == 2:
+        if sys.argv[1] == "-h":
+            ...
+            
+    elif len(sys.argv) == 5:
+        from_value = sys.argv[1]
+        from_type = sys.argv[2]
+        to_type = sys.argv[4]
+        if check_data(from_value):
+            from_value = float(from_value)
+        else:
+            ...
+        if from_type in units_length and to_type in units_length:
+            converted_data = convert_length(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+        elif from_type in units_volume and to_type in units_volume:
+            converted_data = convert_volume(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+        elif from_type in units_mass and to_type in units_mass:
+            converted_data = convert_mass(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+        elif from_type in units_temp and to_type in units_temp:
+            converted_data = convert_temp(from_type, to_type, from_value)
+            package_data = [from_type, to_type, from_value, converted_data]
+            final_equation = format_response(package_data)
+            print(final_equation)
+
+
+def standard_app():
     print()
     print("Welcome to the basic unit converter")
     print(tabulate(units_options, headers="firstrow", tablefmt="pretty"))
@@ -57,7 +104,24 @@ def main():
     package_data = [from_type, to_type, from_value, converted_data]
     final_equation = format_response(package_data)
     print(final_equation)
+    print()
 
+def retry():
+    while True:
+        try:
+            answer = input("Would you like to convert again (yes/no)? ")
+            if answer == "yes":
+                code = 1
+                break
+            elif answer == "no":
+                code = 2
+                break
+            else:
+                pass
+        except ValueError:
+            pass
+    return code
+    
 
 def get_units():
     while True:
