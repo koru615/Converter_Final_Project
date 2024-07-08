@@ -21,9 +21,9 @@ volume:
 mass:
     "kilogram", "gram", "milligram", "metric_ton", "US_ton", "pound", "ounce", "carat"
 temperature:
-    "celsius", "kelvin", "farenheit"
+    "celsius", "kelvin", "fahrenheit"
             
-*** UNITS MUST BE SPELLED CORRECTLY OR AN ERROR WILL BE THROWN ***
+*** UNITS MUST BE SPELLED CORRECTLY (SINGULAR) OR AN ERROR WILL BE THROWN ***
 *** If performing a single conversion, all three options must be given (-x, -f, -t)***
 *** If requesting all conversions for a given unit, provide the value(-x), from unit(-f), and (-a) ***
             '''),
@@ -58,14 +58,14 @@ units_mass = [
 ]
 
 units_temp = [
-    "celsius", "kelvin", "farenheit"
+    "celsius", "kelvin", "fahrenheit"
 ]
 
 abbreviations = {
     "inch":"in", "foot":"ft", "yard":"yd", "mile":"mi", "millimeter":"mm", "centimeter":"cm", "kilometer":"km", "meter":"m",
     "fluid oz":"fl oz", "pint":"pt", "gallon":"gal", "table spoon":"tbsp", "tea spoon":"tsp", "quart":"qt", "cup":"cup", "liter":"L", "milliliter":"mL",
     "kilogram":"kg", "gram":"g", "milligram":"mg", "metric ton":"t", "US ton":"t (US)", "pound":"lbs", "ounce":"oz", "carat":"ct",
-    "celsius":"°C", "kelvin":"K", "farenheit":"°F",
+    "celsius":"°C", "kelvin":"K", "fahrenheit":"°F",
 }
 
 
@@ -688,21 +688,21 @@ def convert_temp(from_type, to_type, from_value):
             return from_value
         elif to_type == "kelvin":
             return from_value + 273.15
-        elif to_type == "farenheit":
+        elif to_type == "fahrenheit":
             return (from_value * 9/5) + 32
     if from_type == "kelvin":
         if to_type == "celsius":
             return from_value - 273.15
         elif to_type == "kelvin":
             return from_value
-        elif to_type == "farenheit":
+        elif to_type == "fahrenheit":
             return ((from_value - 273.15) * 9/5) + 32
-    if from_type == "farenheit":
+    if from_type == "fahrenheit":
         if to_type == "celsius":
             return (from_value - 32) * 5/9
         elif to_type == "kelvin":
             return (from_value - 32) * 5/9 + 273.15
-        elif to_type == "farenheit":
+        elif to_type == "fahrenheit":
             return from_value
 
 
@@ -760,6 +760,8 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
             package_data = [from_type, to_type, from_value, converted_data]
             final_equation = format_response(package_data)
             print(final_equation)
+        elif to_type not in units_length:
+            print("ERROR: units must be the same parent type")
     elif from_type in units_volume:
         if all:
             for i in units_volume:
@@ -772,6 +774,8 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
             package_data = [from_type, to_type, from_value, converted_data]
             final_equation = format_response(package_data)
             print(final_equation)
+        elif to_type not in units_volume:
+            print("ERROR: units must be the same parent type")
     elif from_type in units_mass:
         if all:
             for i in units_mass:
@@ -784,6 +788,8 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
             package_data = [from_type, to_type, from_value, converted_data]
             final_equation = format_response(package_data)
             print(final_equation)
+        elif to_type not in units_mass:
+            print("ERROR: units must be the same parent type")
     elif from_type in units_temp:
         if all:
             for i in units_temp:
@@ -796,6 +802,8 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
             package_data = [from_type, to_type, from_value, converted_data]
             final_equation = format_response(package_data)
             print(final_equation)
+        elif to_type not in units_temp:
+            print("ERROR: units must be the same parent type")
     else:
         sys.exit("ERROR: improper values. use -h for a list of valid operators")
 
@@ -807,7 +815,7 @@ if args.from_value != None:
     if from_type != None and to_type == None and all == False:
         sys.exit("ERROR: missing unit to convert to. use -h for a list of valid operators")
     cl_converter(from_type, to_type, from_value, all)
-elif args != None:
+elif len(sys.argv) > 1 and args != None:
     print("ERROR: need more info, use -h for usage")
 
 if __name__ == "__main__":
