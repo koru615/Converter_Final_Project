@@ -2,40 +2,42 @@ from tabulate import tabulate
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(
-    prog="basic unit converter",
-    formatter_class=argparse.RawDescriptionHelpFormatter,
-    description=('''\
+def parse_args():
+    parser = argparse.ArgumentParser(
+        prog="basic unit converter",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=('''\
 
-convert basic units of measurement in length, volume, mass, or temperature
-this program can be run with or without command line arguments
-NOTE: an underscore "_" is used with units that would require spaces
-                 '''),
-    epilog=('''\
-Available units to convert
---------------------------
-length:
-    "inch", "foot", "yard", "mile", "millimeter", "centimeter", "kilometer", "meter"
-volume:
-    "fluid_oz", "pint", "gallon", "table_spoon", "tea_spoon", "quart", "cup", "liter", "milliliter"
-mass:
-    "kilogram", "gram", "milligram", "metric_ton", "US_ton", "pound", "ounce", "carat"
-temperature:
-    "celsius", "kelvin", "fahrenheit"
-            
-*** UNITS MUST BE SPELLED CORRECTLY (SINGULAR) OR AN ERROR WILL BE THROWN ***
-*** If performing a single conversion, all three options must be given (-x, -f, -t)***
-*** If requesting all conversions for a given unit, provide the value(-x), from unit(-f), and (-a) ***
-            '''),
-    )
+    convert basic units of measurement in length, volume, mass, or temperature
+    this program can be run with or without command line arguments
+    NOTE: an underscore "_" is used with units that would require spaces
+                    '''),
+        epilog=('''\
+    Available units to convert
+    --------------------------
+    length:
+        "inch", "foot", "yard", "mile", "millimeter", "centimeter", "kilometer", "meter"
+    volume:
+        "fluid_oz", "pint", "gallon", "table_spoon", "tea_spoon", "quart", "cup", "liter", "milliliter"
+    mass:
+        "kilogram", "gram", "milligram", "metric_ton", "US_ton", "pound", "ounce", "carat"
+    temperature:
+        "celsius", "kelvin", "fahrenheit"
+                
+    *** UNITS MUST BE SPELLED CORRECTLY (SINGULAR) OR AN ERROR WILL BE THROWN ***
+    *** If performing a single conversion, all three options must be given (-x, -f, -t)***
+    *** If requesting all conversions for a given unit, provide the value(-x), from unit(-f), and (-a) ***
+                '''),
+        )
 
-parser.add_argument("-x", "--value", type=float, dest="from_value", help="value to be converted (float)")
-parser.add_argument("-f", "--from", type=str, dest="from_type", help="unit to be converted from")
-parser.add_argument("-t", "--to", type=str, dest="to_type", help="unit to be converted to")
-parser.add_argument("-a", "--all", action="store_true", dest="all", help="show all conversions for a given 'from' unit")
+    parser.add_argument("-x", "--value", type=float, dest="from_value", help="value to be converted (float)")
+    parser.add_argument("-f", "--from", type=str, dest="from_type", help="unit to be converted from")
+    parser.add_argument("-t", "--to", type=str, dest="to_type", help="unit to be converted to")
+    parser.add_argument("-a", "--all", action="store_true", dest="all", help="show all conversions for a given 'from' unit")
 
 
-args = parser.parse_args()
+    args = parser.parse_args()
+    return args
 
 units_options = [
     ["code","unit"], ["1","length"], ["2","volume"], ["3","mass"], ["4","temperature"]
@@ -807,16 +809,19 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
     else:
         sys.exit("ERROR: improper values. use -h for a list of valid operators")
 
-if args.from_value != None:
-    from_value = args.from_value
-    from_type = args.from_type
-    to_type = args.to_type
-    all = args.all
-    if from_type != None and to_type == None and all == False:
-        sys.exit("ERROR: missing unit to convert to. use -h for a list of valid operators")
-    cl_converter(from_type, to_type, from_value, all)
-elif len(sys.argv) > 1 and args != None:
-    print("ERROR: need more info, use -h for usage")
+def use_args(args):
+    if args.from_value != None:
+        from_value = args.from_value
+        from_type = args.from_type
+        to_type = args.to_type
+        all = args.all
+        if from_type != None and to_type == None and all == False:
+            sys.exit("ERROR: missing unit to convert to. use -h for a list of valid operators")
+        cl_converter(from_type, to_type, from_value, all)
+    elif len(sys.argv) > 1 and args != None:
+        print("ERROR: need more info, use -h for usage")
 
 if __name__ == "__main__":
     main()
+    args = parse_args()
+    use_args(args)

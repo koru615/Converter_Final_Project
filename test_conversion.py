@@ -1,4 +1,4 @@
-from conversion import *
+from conversion import convert_length, convert_mass, convert_volume, convert_temp
 from pytest import approx
 
 def test_convert_length():
@@ -267,14 +267,14 @@ def test_convert_temp():
     #celsius
     assert convert_temp("celsius", "celsius", 25) == 25
     assert convert_temp("celsius", "kelvin", 25) == 298.15
-    assert convert_temp("celsius", "farenheit", 25) == 77
+    assert convert_temp("celsius", "fahrenheit", 25) == 77
     
     #kelvin
     assert convert_temp("kelvin", "celsius", 25) == approx(-248.15, abs=1e-4)
     assert convert_temp("kelvin", "kelvin", 25) == 25
-    assert convert_temp("kelvin", "farenheit", 25) == approx(-414.67, abs=1e-4)
+    assert convert_temp("kelvin", "fahrenheit", 25) == approx(-414.67, abs=1e-4)
     
-    #farenheit
-    assert convert_temp("farenheit", "celsius", 25) == approx(-3.8888, abs=1e-4)
-    assert convert_temp("farenheit", "kelvin", 25) == approx(269.261, abs=1e-3)
-    assert convert_temp("farenheit", "farenheit", 25) == 25
+    #fahrenheit
+    assert convert_temp("fahrenheit", "celsius", 25) == approx(-3.8888, abs=1e-4)
+    assert convert_temp("fahrenheit", "kelvin", 25) == approx(269.261, abs=1e-3)
+    assert convert_temp("fahrenheit", "fahrenheit", 25) == 25
