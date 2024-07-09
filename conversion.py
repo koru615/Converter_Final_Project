@@ -743,7 +743,6 @@ def cl_converter(from_type: str, to_type: str, from_value: float, all: bool):
     if from_type != None:
         if "_" in from_type:
             from_type = from_type.replace("_", " ")
-            print(from_type)
 
     if to_type != None:
         if "_" in to_type:
